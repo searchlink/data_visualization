@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    导入echarts.js文件#}
+<!--    <script type="text/javascript" src="/static/js/echarts.min.js"></script>-->
+    <script type="text/javascript" src="/static/js/echarts.js"></script>
+    <script type="text/javascript" src="/static/js/customed.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div id="main" style="width: 600px;height: 400px;"></div>
+    <div id="just_test" style="width: 600px;height: 400px;"></div>
+    <div id="pie_graph" style="width: 600px;height: 400px"></div>
+    <div id="theme_graph" style="width: 600px;height: 400px"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            title: {
+                text: 'ECharts 入门示例',
+            },
+            tooltip: {
+
+            },
+            legend: {
+                data: ['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        myChart.setOption(option)
+    </script>
+
+    <script type="text/javascript">
+        var weather = echarts.init(document.getElementById('just_test'));
+
+        var option = {
+            title: {
+                text: '某地区蒸发量和降水量',
+                subtext: '纯属虚构'
+            },
+
+            tooltip: {
+                trigger: 'axis',
+                formatter(params){
+                    for(x in params){
+                        return params[x].name + ':' + params[x].data.value + "/" + params[x].data.date;
+                    }
+                }
+            },
+
+            legend: {
+                data: ['蒸发量', '降水量']
+            },
+
+            xAxis: {
+                type: 'category',
+                data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+            },
+
+            yAxis: {
+                type: 'value',
+            },
+
+            series: [
+                {
+                name: '蒸发量',
+                type: 'bar',
+                data:[{'date':'2019-01','value':'2.0'}, {'date':'2019-01','value':'4.9'},
+                    {'date':'2019-01','value':'7.0'}, {'date':'2019-01','value':'23.2'},
+                    {'date':'2019-01','value':'25.6'}, {'date':'2019-01','value':'76.7'},
+                    {'date':'2019-01','value':'135.6'}, {'date':'2019-01','value':'162.2'},
+                    {'date':'2019-01','value':'32.6'}, {'date':'2019-01','value':'20.0'},
+                    {'date':'2019-01','value':'6.4'}, {'date':'2019-01','value':'3.3'}]
+                },
+                {
+                name:'降水量',
+                type:'bar',
+                data:[{'date':'2019-01','value':'2.6'}, {'date':'2019-01','value':'5.9'}, {'date':'2019-01','value':'9.0'}, {'date':'2019-01','value':'26.4'}, {'date':'2019-01','value':'28.7'}, {'date':'2019-01','value':'70.7'}, {'date':'2019-01','value':'175.6'}, {'date':'2019-01','value':'182.2'}, {'date':'2019-01','value':'48.7'}, {'date':'2019-01','value':'18.8'}, {'date':'2019-01','value':'6.0'}, {'date':'2019-01','value':'2.3'}]
+                }
+            ]
+        };
+
+        weather.setOption(option)
+    </script>
+
+    <script type="text/javascript">
+        var pie_obj = echarts.init(document.getElementById('pie_graph'));
+        pie_obj.setOption({
+            backgroundColor: '#2c343c',
+            visualMap: {
+                show: false,
+                min: 80,
+                max: 600,
+                inRange: {
+                    colorLightness: [0, 1]
+                }
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    data: [
+                        {value: 235, name: '视频广告'},
+                        {value: 274, name: '联盟广告'},
+                        {value: 310, name: '邮件营销'},
+                        {value: 335, name: '直接访问'},
+                        {value: 400, name: '搜索引擎'}
+                    ],
+                    roseType: 'angle',
+                    label: {
+                        emphasis: {
+                            textStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#c23531',
+                            shadowBlur: 200,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+        var theme_chart = echarts.init(document.getElementById("theme_graph"), 'vintage')
+
+        var option = {
+            title: {
+                text: 'ECharts 入门示例',
+            },
+            tooltip: {
+
+            },
+            legend: {
+                data: ['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        theme_chart.setOption(option)
+    </script>
+
+    <script type="text/javascript">
+        // 异步加载
+
+    </script>
+</body>
+</html>

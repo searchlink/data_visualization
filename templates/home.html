@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI组数据分析平台</title>
+    <script type="text/javascript" src="/static/js/echarts.js"></script>
+    <script src="/static/js/jquery-3.5.1.min.js"></script>
+    {% load static %}
+    <link rel="SHORTCUT ICON" href="{% static "images/favicon.ico" %}"/>
+</head>
+<body>
+<div id="population-chart" style="width: 800px;height: 500px" data-url="{% url 'population-chart' %}"></div>
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('population-chart'));
+
+    var $populationChart = $("#population-chart");
+
+    $.ajax({
+        url: $populationChart.data("url"),
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            var option = {
+                title: {
+                    text: '国家人口柱状图'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['Population'],
+                },
+                xAxis: {
+                    data: data.labels,
+                    {#x轴文字旋转#}
+                    axisLabel: {
+                        interval: 1,  {#设置横坐标的文字全部显示，不间隔#}
+                        rotate: 40
+                    },
+                },
+                yAxis: {},
+                {## 解决左右遮挡问题#}
+                grid: {
+                    left: '1%',
+                    right: '5%',
+                    bottom: '10%',
+                    containLabel: true,
+                },
+                series: [
+                    {
+                        name: 'Population',
+                        type: 'bar',
+                        data: data.data
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        },
+        error: function () {
+            alert('Error: ajax 请求出错！')
+
+        }
+
+    });
+
+</script>
+</body>
+</html>

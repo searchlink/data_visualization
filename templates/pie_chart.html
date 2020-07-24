@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI组数据分析平台</title>
+    <script type="text/javascript" src="/static/js/echarts.js"></script>
+    {#    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>#}
+    {% load static %}
+    <link rel="SHORTCUT ICON" href="{% static "images/favicon.ico" %}"/>
+</head>
+<body>
+<div id="pie_chart" style="width: 600px;height: 400px"></div>
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('pie_chart'));
+
+    var kv = new Array();       //声明一个新的字典
+    kv = {{ data|safe }};       //取出后台传递的数据，此处添加safe过滤避免警告
+    var pie_data = new Array(); //声明一个新的字典用于存放数据
+    for (var key in kv) {
+        //将对应键值对取出存入pie_data，key为该字典的键
+        pie_data.push({value: kv[key], name: key})
+    }
+
+    var option = {
+        title: {
+            text: '数据可视化实例',
+            subtext: '应用开发'
+        },
+
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+
+        legend: {
+            orient: 'vertical',
+            left: 'center',
+            bottom: 'bottom',
+            data: name
+        },
+
+        series: [
+            {
+                name: '城市人口分布',
+                type: 'pie',
+                radius: '55%',
+                data: pie_data,
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}: {c}({d}%)'
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+
+    };
+
+    myChart.setOption(option)
+</script>
+</body>
+</html>
